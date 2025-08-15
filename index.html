@@ -473,7 +473,7 @@
             if (type === 'success') {
                 setTimeout(() => {
                     messageContainer.innerHTML = '';
-                }, 5000);
+                }, 300000);
             }
         }
 
@@ -509,12 +509,12 @@
             setLoading(true);
 
             try {
-                // Use your full backend URL - replace with your actual server URL
-                const backendUrl = 'https://your-backend-domain.com/wait/register'; // UPDATE THIS WITH YOUR ACTUAL URL
+                const url = 'wait/register';
 
+                console.log('Making POST request to:', url); // Debug log
                 console.log('Sending data:', { fullname, email }); // Debug log
 
-                const response = await fetch(backendUrl, {
+                const response = await fetch(url, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -543,19 +543,7 @@
                 }
             } catch (error) {
                 console.error('Fetch error:', error);
-
-                // For testing purposes, show a mock success message
-                if (error.name === 'TypeError' && error.message.includes('fetch')) {
-                    showMessage(`Thank you ${fullname}, you are now part of our waitlist. We will notify you when we launch Mindspace Africa (Mock Response - Backend not reachable)`, 'success');
-                    waitlistForm.reset();
-
-                    // Update waitlist counter
-                    const currentCount = document.getElementById('waitlistCount');
-                    const count = parseInt(currentCount.textContent.replace('+', '')) + 1;
-                    currentCount.textContent = count + '+';
-                } else {
-                    showMessage('Network error. Please check your connection and try again.', 'error');
-                }
+                showMessage('Network error. Please check your connection and try again.', 'error');
             } finally {
                 setLoading(false);
             }
