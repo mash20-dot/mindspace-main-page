@@ -9,9 +9,26 @@
         OneSignalDeferred.push(async function (OneSignal) {
             await OneSignal.init({
                 appId: "54945fa5-f4c0-43ed-aa02-08bac3656b6c",
+                notifyButton: { enable: true }, // adds the floating bell
+                promptOptions: {
+                    slidedown: {
+                        prompts: [
+                            {
+                                type: "push",
+                                autoPrompt: true, // automatically asks for permission
+                                text: {
+                                    actionMessage: "We’d like to send you notifications",
+                                    acceptButton: "Allow",
+                                    cancelButton: "No thanks"
+                                }
+                            }
+                        ]
+                    }
+                }
             });
         });
     </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MindSpace Africa - Your Safe Space for Emotional Support</title>
