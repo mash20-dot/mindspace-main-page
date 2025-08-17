@@ -1952,8 +1952,8 @@
 
                 const result = await response.json();
 
-                if (Array.isArray(result.counselor) && result.counselor > 0) {
-                    displayCounselors(result.counselor);
+                if (Array.isArray(result.counselors) && result.counselors > 0) {
+                    displayCounselors(result.counselors);
                 } else if (result.message) {
                     // Handle specific error messages from backend
                     container.innerHTML = `
