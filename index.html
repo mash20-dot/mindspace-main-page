@@ -3,19 +3,15 @@
 
 <head>
 
-    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
     <script>
-        window.OneSignal = window.OneSignal || [];
-        OneSignal.push(function () {
-            OneSignal.init({
-                appId: "54945fa5-f4c0-43ed-aa02-08bac3656b6c", // copy from dashboard
-                notifyButton: {
-                    enable: true, // adds the bell icon for users to manage subscription
-                },
+        window.OneSignalDeferred = window.OneSignalDeferred || [];
+        OneSignalDeferred.push(async function (OneSignal) {
+            await OneSignal.init({
+                appId: "54945fa5-f4c0-43ed-aa02-08bac3656b6c",
             });
         });
     </script>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MindSpace Africa - Your Safe Space for Emotional Support</title>
