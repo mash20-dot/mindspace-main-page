@@ -1942,6 +1942,7 @@
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${window.authToken}`
+
                     }
                 });
 
@@ -1951,8 +1952,8 @@
 
                 const result = await response.json();
 
-                if (Array.isArray(result) && result.length > 0) {
-                    displayCounselors(result);
+                if (Array.isArray(result.counselor) && result.counselor > 0) {
+                    displayCounselors(result.counselor);
                 } else if (result.message) {
                     // Handle specific error messages from backend
                     container.innerHTML = `
