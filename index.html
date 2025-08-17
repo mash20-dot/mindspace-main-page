@@ -141,6 +141,37 @@
             box-shadow: var(--shadow-lg);
         }
 
+        /* User info in header */
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .username {
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .logout-btn {
+            background: transparent;
+            border: 2px solid var(--error-color);
+            color: var(--error-color);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .logout-btn:hover {
+            background: var(--error-color);
+            color: white;
+            transform: scale(1.05);
+        }
+
         /* Animations */
         @keyframes fadeInUp {
             from {
@@ -228,6 +259,97 @@
 
         .page-section.active {
             display: block;
+        }
+
+        /* Dashboard Styles */
+        .dashboard-section {
+            padding: 2rem 0;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            min-height: calc(100vh - 100px);
+        }
+
+        .dashboard-container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .welcome-card {
+            background: var(--bg-card);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .welcome-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .welcome-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .anonymous-name {
+            background: var(--bg-secondary);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            display: inline-block;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .dashboard-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .action-card {
+            background: var(--bg-primary);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .action-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
+        }
+
+        .action-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .action-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .action-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
         }
 
         /* Landing Page */
@@ -403,8 +525,6 @@
             box-shadow: var(--shadow-lg);
             border-color: var(--primary-color);
         }
-
-
 
         .user-type-title {
             font-size: 1.5rem;
@@ -667,6 +787,23 @@
             .features-grid {
                 grid-template-columns: 1fr;
             }
+
+            .welcome-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .welcome-title {
+                font-size: 2rem;
+            }
+
+            .dashboard-actions {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .username {
+                display: none;
+            }
         }
 
         @media (max-width: 480px) {
@@ -735,6 +872,18 @@
             .signup-form div[style*="flex"] {
                 margin-bottom: 1rem;
             }
+
+            .welcome-card {
+                padding: 1.5rem 1rem;
+            }
+
+            .welcome-title {
+                font-size: 1.8rem;
+            }
+
+            .welcome-subtitle {
+                font-size: 1rem;
+            }
         }
 
         @media (max-width: 360px) {
@@ -753,6 +902,10 @@
             .user-type-description {
                 font-size: 0.85rem;
             }
+
+            .welcome-title {
+                font-size: 1.6rem;
+            }
         }
     </style>
 </head>
@@ -764,7 +917,13 @@
             <a href="#" class="logo" onclick="showPage('landing')">MindSpace Africa</a>
             <div class="nav-actions">
                 <button class="theme-toggle" id="themeToggle">Dark</button>
-                <a href="#" class="get-started-btn" onclick="showPage('selection')">Get Started</a>
+                <div id="publicActions">
+                    <a href="#" class="get-started-btn" onclick="showPage('selection')">Get Started</a>
+                </div>
+                <div id="userActions" class="user-info" style="display: none;">
+                    <span class="username" id="headerUsername"></span>
+                    <button class="logout-btn" onclick="logout()">Logout</button>
+                </div>
             </div>
         </nav>
     </header>
@@ -860,6 +1019,54 @@
                 </div>
             </div>
         </footer>
+    </div>
+
+    <!-- User Dashboard -->
+    <div id="dashboardPage" class="page-section">
+        <div class="container">
+            <div class="dashboard-section">
+                <div class="dashboard-container">
+                    <div class="welcome-card">
+                        <h1 class="welcome-title">Welcome to MindSpace</h1>
+                        <p class="welcome-subtitle">Your safe space for emotional support and mental wellness</p>
+                        <div class="anonymous-name" id="dashboardUsername">
+                            Loading...
+                        </div>
+                        <p style="color: var(--text-secondary); font-size: 0.95rem;">
+                            Your identity is protected. Connect, share, and heal in complete anonymity.
+                        </p>
+                    </div>
+
+                    <div class="dashboard-actions">
+                        <div class="action-card" onclick="alert('Community feature coming soon!')">
+                            <div class="action-icon">🤝</div>
+                            <h3 class="action-title">Join Community</h3>
+                            <p class="action-description">Connect with others who understand your journey in supportive
+                                group discussions.</p>
+                        </div>
+
+                        <div class="action-card" onclick="alert('Counselor matching feature coming soon!')">
+                            <div class="action-icon">👨‍⚕️</div>
+                            <h3 class="action-title">Find a Counselor</h3>
+                            <p class="action-description">Get matched with licensed professionals for personalized
+                                support.</p>
+                        </div>
+
+                        <div class="action-card" onclick="alert('Resources feature coming soon!')">
+                            <div class="action-icon">📚</div>
+                            <h3 class="action-title">Wellness Resources</h3>
+                            <p class="action-description">Access guided meditations, articles, and self-help tools.</p>
+                        </div>
+
+                        <div class="action-card" onclick="alert('Crisis support feature coming soon!')">
+                            <div class="action-icon">🆘</div>
+                            <h3 class="action-title">Crisis Support</h3>
+                            <p class="action-description">Immediate help when you need it most. Available 24/7.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- User Selection Page -->
@@ -1076,6 +1283,62 @@
 
         // Auth mode tracking
         let isLoginMode = false;
+        let currentUser = null;
+
+        // Check for existing session on page load
+        function checkExistingSession() {
+            const storedUser = localStorage.getItem('currentUser');
+            const storedToken = localStorage.getItem('authToken');
+
+            if (storedUser && storedToken) {
+                try {
+                    currentUser = JSON.parse(storedUser);
+                    window.authToken = storedToken;
+                    updateUIForLoggedInUser();
+                    showPage('dashboard');
+                } catch (error) {
+                    console.error('Error parsing stored user data:', error);
+                    clearUserSession();
+                }
+            }
+        }
+
+        // Update UI for logged in user
+        function updateUIForLoggedInUser() {
+            if (currentUser && currentUser.anonymous_name) {
+                // Update header
+                document.getElementById('publicActions').style.display = 'none';
+                document.getElementById('userActions').style.display = 'flex';
+                document.getElementById('headerUsername').textContent = currentUser.anonymous_name;
+
+                // Update dashboard
+                document.getElementById('dashboardUsername').textContent = currentUser.anonymous_name;
+            }
+        }
+
+        // Logout function
+        function logout() {
+            // Clear stored data
+            clearUserSession();
+
+            // Reset UI
+            document.getElementById('publicActions').style.display = 'block';
+            document.getElementById('userActions').style.display = 'none';
+
+            // Show landing page
+            showPage('landing');
+
+            console.log('User logged out successfully');
+        }
+
+        // Clear user session data
+        function clearUserSession() {
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('anonymousName');
+            currentUser = null;
+            window.authToken = null;
+        }
 
         // Page navigation functionality
         function showPage(pageId) {
@@ -1107,6 +1370,8 @@
                 updateAuthMode();
             } else if (pageId === 'counselor-signup') {
                 targetPage = document.getElementById('counselorSignupPage');
+            } else if (pageId === 'dashboard') {
+                targetPage = document.getElementById('dashboardPage');
             }
 
             if (targetPage) {
@@ -1210,6 +1475,17 @@
                 if (signupForm) {
                     signupForm.classList.add('animate-fade-in-up');
                 }
+            } else if (pageId === 'dashboard') {
+                const welcomeCard = document.querySelector('.welcome-card');
+                const actionCards = document.querySelectorAll('.action-card');
+
+                if (welcomeCard) {
+                    welcomeCard.classList.add('animate-fade-in-up');
+                }
+
+                actionCards.forEach((card, index) => {
+                    card.classList.add('animate-fade-in-up', `animate-delay-${Math.min(index + 1, 3)}`);
+                });
             }
         }
 
@@ -1325,11 +1601,6 @@
                 const result = await response.json();
 
                 if (response.ok) {
-                    // Store anonymous name if provided
-                    if (result.anonymous_name) {
-                        localStorage.setItem('anonymousName', result.anonymous_name);
-                    }
-
                     const displayMessage = result.anonymous_name
                         ? `Account created successfully! Your anonymous name is: <strong>${result.anonymous_name}</strong>. You can now sign in.`
                         : result.message || 'Account created successfully! You can now sign in.';
@@ -1341,7 +1612,7 @@
                     setTimeout(() => {
                         isLoginMode = true;
                         updateAuthMode();
-                    }, 7000); // Extended time to read anonymous name
+                    }, 3000);
                 } else {
                     showMessage('clientMessageContainer',
                         result.message || 'Failed to create account. Please try again.',
@@ -1380,7 +1651,7 @@
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    credentials: 'include', // Important for JWT cookies
+                    credentials: 'include',
                     body: JSON.stringify({
                         email: data.email,
                         password: data.password
@@ -1390,33 +1661,33 @@
                 const result = await response.json();
 
                 if (response.ok) {
-                    // Store access token if provided
-                    if (result.access_token) {
-                        window.authToken = result.access_token;
-                    }
+                    // Store user data and token
+                    currentUser = {
+                        email: data.email,
+                        anonymous_name: result.anonymous_name,
+                        access_token: result.access_token
+                    };
 
-                    // Store anonymous name if provided in login response
-                    if (result.anonymous_name) {
-                        localStorage.setItem('anonymousName', result.anonymous_name);
-                    }
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    localStorage.setItem('authToken', result.access_token);
+                    window.authToken = result.access_token;
 
-                    // Create welcome message with anonymous name
-                    const anonymousName = result.anonymous_name || localStorage.getItem('anonymousName');
-                    const welcomeMessage = anonymousName
-                        ? `Welcome back, <strong>${anonymousName}</strong>! Logged in successfully.`
-                        : result.msg || 'Logged in successfully! Welcome to MindSpace Africa.';
+                    // Update UI
+                    updateUIForLoggedInUser();
+
+                    // Show success message briefly then redirect to dashboard
+                    const welcomeMessage = result.anonymous_name
+                        ? `Welcome back, <strong>${result.anonymous_name}</strong>! Redirecting to your dashboard...`
+                        : 'Logged in successfully! Redirecting to your dashboard...';
 
                     showMessage('clientMessageContainer', welcomeMessage, 'success');
 
                     e.target.reset();
 
-                    // Here you can redirect to your main application or dashboard
+                    // Redirect to dashboard after 2 seconds
                     setTimeout(() => {
-                        // Update header to show user is logged in
-                        updateHeaderForLoggedInUser(anonymousName);
-                        console.log('User logged in successfully with token:', result.access_token);
-                        console.log('Anonymous name:', anonymousName);
-                    }, 1500);
+                        showPage('dashboard');
+                    }, 2000);
                 } else {
                     showMessage('clientMessageContainer',
                         result.message || result.msg || 'Login failed. Please check your credentials.',
@@ -1434,7 +1705,7 @@
             }
         });
 
-        // Counselor signup form handler (unchanged as requested)
+        // Counselor signup form handler (unchanged)
         document.getElementById('counselorSignupForm').addEventListener('submit', async (e) => {
             e.preventDefault();
 
@@ -1460,7 +1731,7 @@
             setLoading('counselorSubmitBtn', 'counselorButtonText', true);
 
             try {
-                // Simulate API call for counselor signup (keeping original behavior)
+                // Simulate API call for counselor signup
                 await new Promise(resolve => setTimeout(resolve, 2000));
 
                 showMessage('counselorMessageContainer',
@@ -1478,10 +1749,13 @@
 
         // Initialize page on load
         document.addEventListener('DOMContentLoaded', () => {
-            // Add initial animations to landing page
-            addPageAnimations('landing');
-            // Check for existing session
+            // Check for existing session first
             checkExistingSession();
+
+            // If no session, add initial animations to landing page
+            if (!currentUser) {
+                addPageAnimations('landing');
+            }
         });
 
         // Header scroll effect
