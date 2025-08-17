@@ -800,6 +800,10 @@
             height: 20px;
             margin-right: 0.8rem;
             flex-shrink: 0;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .detail-text {
@@ -1164,27 +1168,27 @@
 
                     <div class="dashboard-actions">
                         <div class="action-card" onclick="alert('Community feature coming soon!')">
-                            <div class="action-icon">🤝</div>
+                            <div class="action-icon">Community</div>
                             <h3 class="action-title">Join Community</h3>
                             <p class="action-description">Connect with others who understand your journey in supportive
                                 group discussions.</p>
                         </div>
 
                         <div class="action-card" onclick="showPage('find-counselor')">
-                            <div class="action-icon">👨‍⚕️</div>
+                            <div class="action-icon">Counselor</div>
                             <h3 class="action-title">Find a Counselor</h3>
                             <p class="action-description">Get matched with licensed professionals for personalized
                                 support.</p>
                         </div>
 
                         <div class="action-card" onclick="alert('Resources feature coming soon!')">
-                            <div class="action-icon">📚</div>
+                            <div class="action-icon">Resources</div>
                             <h3 class="action-title">Wellness Resources</h3>
                             <p class="action-description">Access guided meditations, articles, and self-help tools.</p>
                         </div>
 
                         <div class="action-card" onclick="alert('Crisis support feature coming soon!')">
-                            <div class="action-icon">🆘</div>
+                            <div class="action-icon">Support</div>
                             <h3 class="action-title">Crisis Support</h3>
                             <p class="action-description">Immediate help when you need it most. Available 24/7.</p>
                         </div>
@@ -1201,9 +1205,9 @@
                 <div class="dashboard-container">
                     <div
                         style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-                        <a href="#" class="back-link" onclick="showPage('dashboard')">← Back to Dashboard</a>
+                        <a href="#" class="back-link" onclick="showPage('dashboard')">Back to Dashboard</a>
                         <button class="theme-toggle" onclick="loadCounselors()" style="padding: 0.5rem 1rem;">
-                            🔄 Refresh
+                            Refresh
                         </button>
                     </div>
 
@@ -1232,14 +1236,14 @@
             <div class="selection-page">
                 <div class="selection-container">
                     <a href="#" class="back-link" onclick="showPage('landing')"
-                        style="display: block; text-align: left; margin-bottom: 2rem;">← Back to Home</a>
+                        style="display: block; text-align: left; margin-bottom: 2rem;">Back to Home</a>
 
                     <h1 class="selection-title">How would you like to get started?</h1>
                     <p class="selection-subtitle">Choose your path to mental wellness support</p>
 
                     <div class="user-types">
                         <a href="#" class="user-type-card" onclick="showPage('client-signup')">
-                            <div class="user-type-icon">🤗</div>
+                            <div class="user-type-icon">Support</div>
                             <h3 class="user-type-title">I Need Support</h3>
                             <p class="user-type-description">I'm looking for emotional support, counseling, or want to
                                 connect with others who understand what I'm going through. Get access to professional
@@ -1247,7 +1251,7 @@
                         </a>
 
                         <a href="#" class="user-type-card" onclick="showPage('counselor-signup')">
-                            <div class="user-type-icon">👨‍⚕️</div>
+                            <div class="user-type-icon">Professional</div>
                             <h3 class="user-type-title">I'm a Counselor</h3>
                             <p class="user-type-description">I'm a licensed mental health professional who wants to
                                 provide support to those in need. Join our network of qualified counselors making a
@@ -1267,7 +1271,7 @@
                     <div
                         style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
                         <a href="#" class="back-link" onclick="showPage('selection')">Back to selection</a>
-                        <a href="#" class="back-link" onclick="showPage('landing')" style="margin-bottom: 0;">← Home</a>
+                        <a href="#" class="back-link" onclick="showPage('landing')" style="margin-bottom: 0;">Home</a>
                     </div>
 
                     <h2 id="authTitle">Join as Someone Seeking Support</h2>
@@ -1346,7 +1350,7 @@
                     <div
                         style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
                         <a href="#" class="back-link" onclick="showPage('selection')">Back to selection</a>
-                        <a href="#" class="back-link" onclick="showPage('landing')" style="margin-bottom: 0;">← Home</a>
+                        <a href="#" class="back-link" onclick="showPage('landing')" style="margin-bottom: 0;">Home</a>
                     </div>
 
                     <h2>Join as a Counselor</h2>
@@ -1444,12 +1448,12 @@
 
         // Check for existing session on page load
         function checkExistingSession() {
-            const storedUser = localStorage.getItem('currentUser');
+            const storedUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
             const storedToken = localStorage.getItem('authToken');
 
             if (storedUser && storedToken) {
                 try {
-                    currentUser = JSON.parse(storedUser);
+                    currentUser = storedUser;
                     window.authToken = storedToken;
                     updateUIForLoggedInUser();
                     showPage('dashboard');
@@ -1871,7 +1875,7 @@
             }
         });
 
-        // Counselor signup form handler (unchanged)
+        // Counselor signup form handler
         document.getElementById('counselorSignupForm').addEventListener('submit', async (e) => {
             e.preventDefault();
 
@@ -1942,7 +1946,6 @@
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${window.authToken}`
-
                     }
                 });
 
@@ -1952,8 +1955,9 @@
 
                 const result = await response.json();
 
-                if (Array.isArray(result.counselors) && result.counselors > 0) {
-                    displayCounselors(result.counselors);
+                // Check for the correct response structure from backend
+                if (Array.isArray(result.counselor) && result.counselor.length > 0) {
+                    displayCounselors(result.counselor);
                 } else if (result.message) {
                     // Handle specific error messages from backend
                     container.innerHTML = `
@@ -1965,7 +1969,7 @@
                 } else {
                     container.innerHTML = `
                         <div class="no-counselors">
-                            <div class="no-counselors-icon">👨‍⚕️</div>
+                            <div class="no-counselors-icon">Counselor</div>
                             <h3>No Counselors Available</h3>
                             <p>We're currently working on expanding our network of mental health professionals. Please check back soon.</p>
                         </div>
@@ -2008,7 +2012,7 @@
             const container = document.getElementById('counselorsContainer');
 
             const counselorsHTML = counselors.map(counselor => {
-                const initials = getInitials(counselor.Full_name || counselor.fullname || 'Unknown');
+                const initials = getInitials(counselor.Full_name || 'Unknown');
 
                 return `
                     <div class="counselor-card animate-fade-in-up">
@@ -2017,35 +2021,28 @@
                                 ${initials}
                             </div>
                             <div class="counselor-info">
-                                <h3>${counselor.Full_name || counselor.fullname || 'Name Not Available'}</h3>
+                                <h3>${counselor.Full_name || 'Name Not Available'}</h3>
                                 <div class="email">${counselor.email || 'Email not provided'}</div>
                             </div>
                         </div>
                         
                         <div class="counselor-details">
                             <div class="detail-item">
-                                <div class="detail-icon">🏥</div>
+                                <div class="detail-icon">License</div>
                                 <div class="detail-text">
-                                    License: ${counselor.license_number || 'Not specified'}
+                                    ${counselor.license_number || 'Not specified'}
                                 </div>
                             </div>
                             
                             <div class="detail-item">
-                                <div class="detail-icon">📍</div>
+                                <div class="detail-icon">Location</div>
                                 <div class="detail-text">
-                                    Location: ${counselor.location || 'Location not specified'}
-                                </div>
-                            </div>
-                            
-                            <div class="detail-item">
-                                <div class="detail-icon">🆔</div>
-                                <div class="detail-text">
-                                    ID: ${counselor.id || 'N/A'}
+                                    ${counselor.location || 'Location not specified'}
                                 </div>
                             </div>
                         </div>
                         
-                        <button class="contact-btn" onclick="contactCounselor(${counselor.id}, '${counselor.Full_name || counselor.fullname}')">
+                        <button class="contact-btn" onclick="contactCounselor('${counselor.email}', '${counselor.Full_name || 'Counselor'}')">
                             Connect with Counselor
                         </button>
                     </div>
@@ -2075,16 +2072,16 @@
         }
 
         // Handle counselor contact
-        function contactCounselor(counselorId, counselorName) {
+        function contactCounselor(counselorEmail, counselorName) {
             // This is a placeholder - implement actual contact functionality
-            alert(`Contact functionality for ${counselorName} (ID: ${counselorId}) will be implemented soon. This could open a chat, booking system, or contact form.`);
+            alert(`Contact functionality for ${counselorName} (${counselorEmail}) will be implemented soon. This could open a chat, booking system, or contact form.`);
 
             // Example of what you might implement:
             // - Open a chat window
             // - Show a booking calendar
             // - Display contact form
             // - Navigate to counselor profile page
-            console.log('Contacting counselor:', { id: counselorId, name: counselorName });
+            console.log('Contacting counselor:', { email: counselorEmail, name: counselorName });
         }
 
         // Initialize page on load
