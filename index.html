@@ -3,31 +3,20 @@
 
 <head>
 
-    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
     <script>
-        window.OneSignalDeferred = window.OneSignalDeferred || [];
-        OneSignalDeferred.push(async function (OneSignal) {
-            await OneSignal.init({
-                appId: "54945fa5-f4c0-43ed-aa02-08bac3656b6c", // your real App ID
-                notifyButton: { enable: true }, // floating bell icon
-                promptOptions: {
-                    slidedown: {
-                        prompts: [
-                            {
-                                type: "push",
-                                autoPrompt: true, // 🔥 automatically show prompt
-                                text: {
-                                    actionMessage: "MindSpace Africa would like to send you updates",
-                                    acceptButton: "Allow",
-                                    cancelButton: "No thanks"
-                                }
-                            }
-                        ]
-                    }
-                }
+        window.OneSignal = window.OneSignal || [];
+        OneSignal.push(function () {
+            OneSignal.init({
+                appId: "54945fa5-f4c0-43ed-aa02-08bac3656b6c",
+                safari_web_id: "YOUR-SAFARI-WEB-ID (if applicable)",
+                notifyButton: {
+                    enable: true, // shows a floating bell for subscription
+                },
             });
         });
     </script>
+
 
 
     <meta charset="UTF-8">
