@@ -1495,28 +1495,28 @@
 
                     <div class="dashboard-actions">
                         <div class="action-card" onclick="alert('Community feature coming soon!')">
-                            <div class="action-icon">🏘️</div>
+                            <div class="action-icon"></div>
                             <h3 class="action-title">Join Community</h3>
                             <p class="action-description">Connect with others who understand your journey in supportive
                                 group discussions.</p>
                         </div>
 
                         <div class="action-card" onclick="showPage('find-counselor')">
-                            <div class="action-icon">👨‍⚕️</div>
+                            <div class="action-icon"></div>
                             <h3 class="action-title">Find a Counselor</h3>
                             <p class="action-description">Get matched with licensed professionals for personalized
                                 support.</p>
                         </div>
 
                         <div class="action-card" onclick="showMotivationalModal()">
-                            <div class="action-icon">✨</div>
+                            <div class="action-icon"></div>
                             <h3 class="action-title">Get Motivated</h3>
                             <p class="action-description">Receive daily inspiration and motivational quotes to brighten
                                 your day and boost your spirit.</p>
                         </div>
 
                         <div class="action-card" onclick="alert('Crisis support feature coming soon!')">
-                            <div class="action-icon">🆘</div>
+                            <div class="action-icon"></div>
                             <h3 class="action-title">Crisis Support</h3>
                             <p class="action-description">Immediate help when you need it most. Available 24/7.</p>
                         </div>
@@ -1832,13 +1832,13 @@
                 <div class="modal-overlay" id="motivationModal" onclick="closeModalOnOverlay(event)">
                     <div class="motivation-modal animate-fade-in-up">
                         <div class="modal-header">
-                            <h2 class="modal-title">✨ Daily Motivation</h2>
+                            <h2 class="modal-title"> Daily Motivation</h2>
                             <button class="close-btn" onclick="hideModal()" aria-label="Close">×</button>
                         </div>
                         
                         <div class="modal-content">
                             <div class="quote-container">
-                                <div class="quote-icon">💪</div>
+                                <div class="quote-icon"></div>
                                 <blockquote class="quote-text">
                                     ${quoteData.message}
                                 </blockquote>
@@ -1847,11 +1847,8 @@
                         </div>
                         
                         <div class="modal-actions">
-                            <button class="action-btn secondary-btn" onclick="getNewQuote()">
-                                🔄 Get New Quote
-                            </button>
                             <button class="action-btn primary-btn" onclick="hideModal()">
-                                ✨ Start My Day
+                                 Start My Day
                             </button>
                         </div>
                     </div>
@@ -1910,7 +1907,7 @@
             if (newQuote && quoteContainer) {
                 // Update the quote content
                 quoteContainer.innerHTML = `
-                    <div class="quote-icon">💪</div>
+                    <div class="quote-icon"></div>
                     <blockquote class="quote-text">
                         ${newQuote.message}
                     </blockquote>
@@ -1921,7 +1918,6 @@
 
             if (refreshBtn) {
                 refreshBtn.disabled = false;
-                refreshBtn.innerHTML = '🔄 Get New Quote';
             }
         }
 
@@ -2520,7 +2516,7 @@
                 } else {
                     container.innerHTML = `
                         <div class="no-counselors">
-                            <div class="no-counselors-icon">👨‍⚕️</div>
+                            <div class="no-counselors-icon"></div>
                             <h3>No Counselors Available</h3>
                             <p>We're currently working on expanding our network of mental health professionals. Please check back soon.</p>
                         </div>
@@ -2579,14 +2575,14 @@
                         
                         <div class="counselor-details">
                             <div class="detail-item">
-                                <div class="detail-icon">📋</div>
+                                <div class="detail-icon"></div>
                                 <div class="detail-text">
                                     ${counselor.license_number || 'Not specified'}
                                 </div>
                             </div>
                             
                             <div class="detail-item">
-                                <div class="detail-icon">📍</div>
+                                <div class="detail-icon"></div>
                                 <div class="detail-text">
                                     ${counselor.location || 'Location not specified'}
                                 </div>
