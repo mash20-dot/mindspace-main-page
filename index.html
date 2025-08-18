@@ -2,23 +2,6 @@
 <html lang="en">
 
 <head>
-
-    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
-    <script>
-        window.OneSignal = window.OneSignal || [];
-        OneSignal.push(function () {
-            OneSignal.init({
-                appId: "54945fa5-f4c0-43ed-aa02-08bac3656b6c",
-                safari_web_id: "YOUR-SAFARI-WEB-ID (if applicable)",
-                notifyButton: {
-                    enable: true, // shows a floating bell for subscription
-                },
-            });
-        });
-    </script>
-
-
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MindSpace Africa - Your Safe Space for Emotional Support</title>
@@ -189,6 +172,266 @@
             transform: scale(1.05);
         }
 
+        /* Modal Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            padding: 1rem;
+        }
+
+        .modal-overlay.modal-visible {
+            opacity: 1;
+        }
+
+        .modal-overlay.modal-closing {
+            opacity: 0;
+        }
+
+        /* Motivational Modal */
+        .motivation-modal {
+            background: var(--bg-card);
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            border: 2px solid var(--border-color);
+        }
+
+        /* Loading Modal */
+        .loading-modal {
+            background: var(--bg-card);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            border: 2px solid var(--border-color);
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border-color);
+            border-top: 3px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        .loading-text {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        /* Modal Header */
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 0;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            transform: scale(1.1);
+        }
+
+        /* Modal Content */
+        .modal-content {
+            padding: 2rem;
+        }
+
+        .quote-container {
+            text-align: center;
+            transition: opacity 0.3s ease;
+        }
+
+        .quote-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .quote-text {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            color: var(--text-primary);
+            font-style: italic;
+            font-weight: 500;
+            margin: 0 0 1.5rem;
+            padding: 0;
+            border: none;
+            position: relative;
+        }
+
+        .quote-text::before {
+            content: '"';
+            font-size: 2rem;
+            color: var(--primary-color);
+            position: absolute;
+            top: -0.5rem;
+            left: -1rem;
+            font-weight: 700;
+        }
+
+        .quote-text::after {
+            content: '"';
+            font-size: 2rem;
+            color: var(--primary-color);
+            position: absolute;
+            bottom: -1rem;
+            right: -1rem;
+            font-weight: 700;
+        }
+
+        .quote-author {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0;
+            font-style: normal;
+        }
+
+        /* Modal Actions */
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            padding: 0 2rem 2rem;
+            justify-content: center;
+        }
+
+        .action-btn {
+            padding: 0.875rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid;
+            flex: 1;
+            max-width: 180px;
+        }
+
+        .primary-btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(78, 103, 235, 0.3);
+        }
+
+        .secondary-btn {
+            background: var(--bg-primary);
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .secondary-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .secondary-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Notification System */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: var(--bg-card);
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow-lg);
+            border-left: 4px solid;
+            z-index: 10001;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            max-width: 300px;
+            animation: slideInRight 0.3s ease;
+        }
+
+        .notification-info {
+            border-left-color: var(--primary-color);
+        }
+
+        .notification-error {
+            border-left-color: var(--error-color);
+        }
+
+        .notification-success {
+            border-left-color: var(--success-color);
+        }
+
+        .notification button {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            padding: 0;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .notification button:hover {
+            color: var(--text-primary);
+        }
+
         /* Animations */
         @keyframes fadeInUp {
             from {
@@ -233,6 +476,16 @@
             to {
                 opacity: 1;
                 transform: translateX(0);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
             }
         }
 
@@ -874,7 +1127,7 @@
             padding: 3rem;
         }
 
-        /* Responsive adjustments for counselor cards */
+        /* Responsive adjustments */
         @media (max-width: 768px) {
             .nav-actions {
                 gap: 0.5rem;
@@ -949,6 +1202,42 @@
 
             .username {
                 display: none;
+            }
+
+            .motivation-modal {
+                margin: 1rem;
+                max-width: calc(100vw - 2rem);
+            }
+
+            .modal-header {
+                padding: 1rem 1.5rem 0;
+            }
+
+            .modal-content {
+                padding: 1.5rem;
+            }
+
+            .modal-actions {
+                padding: 0 1.5rem 1.5rem;
+                flex-direction: column;
+            }
+
+            .action-btn {
+                max-width: none;
+            }
+
+            .quote-text {
+                font-size: 1.1rem;
+            }
+
+            .modal-title {
+                font-size: 1.3rem;
+            }
+
+            .notification {
+                right: 10px;
+                left: 10px;
+                max-width: none;
             }
         }
 
@@ -1029,6 +1318,27 @@
 
             .welcome-subtitle {
                 font-size: 1rem;
+            }
+
+            .motivation-modal {
+                margin: 0.5rem;
+                max-width: calc(100vw - 1rem);
+                border-radius: 15px;
+            }
+
+            .quote-text {
+                font-size: 1rem;
+                margin: 0 0 1rem;
+            }
+
+            .quote-text::before,
+            .quote-text::after {
+                font-size: 1.5rem;
+            }
+
+            .quote-icon {
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
             }
         }
 
@@ -1185,27 +1495,28 @@
 
                     <div class="dashboard-actions">
                         <div class="action-card" onclick="alert('Community feature coming soon!')">
-                            <div class="action-icon">Community</div>
+                            <div class="action-icon">🏘️</div>
                             <h3 class="action-title">Join Community</h3>
                             <p class="action-description">Connect with others who understand your journey in supportive
                                 group discussions.</p>
                         </div>
 
                         <div class="action-card" onclick="showPage('find-counselor')">
-                            <div class="action-icon">Counselor</div>
+                            <div class="action-icon">👨‍⚕️</div>
                             <h3 class="action-title">Find a Counselor</h3>
                             <p class="action-description">Get matched with licensed professionals for personalized
                                 support.</p>
                         </div>
 
-                        <div class="action-card" onclick="alert('Resources feature coming soon!')">
-                            <div class="action-icon">Resources</div>
-                            <h3 class="action-title">Wellness Resources</h3>
-                            <p class="action-description">Access guided meditations, articles, and self-help tools.</p>
+                        <div class="action-card" onclick="showMotivationalModal()">
+                            <div class="action-icon">✨</div>
+                            <h3 class="action-title">Get Motivated</h3>
+                            <p class="action-description">Receive daily inspiration and motivational quotes to brighten
+                                your day and boost your spirit.</p>
                         </div>
 
                         <div class="action-card" onclick="alert('Crisis support feature coming soon!')">
-                            <div class="action-icon">Support</div>
+                            <div class="action-icon">🆘</div>
                             <h3 class="action-title">Crisis Support</h3>
                             <p class="action-description">Immediate help when you need it most. Available 24/7.</p>
                         </div>
@@ -1463,6 +1774,223 @@
         let isLoginMode = false;
         let currentUser = null;
 
+        // MOTIVATIONAL QUOTE FUNCTIONALITY
+        async function fetchMotivationalQuote() {
+            try {
+                // Check if user is logged in
+                if (!window.authToken) {
+                    showNotification('Please log in to access motivational quotes', 'error');
+                    return null;
+                }
+
+                const response = await fetch(`${API_BASE_URL}/motivate/inspiration`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${window.authToken}`
+                    }
+                });
+
+                if (!response.ok) {
+                    if (response.status === 401) {
+                        showNotification('Your session has expired. Please log in again.', 'error');
+                        setTimeout(() => {
+                            logout();
+                            showPage('client-signup');
+                        }, 2000);
+                        return null;
+                    }
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                return result;
+            } catch (error) {
+                console.error('Error fetching motivational quote:', error);
+                showNotification('Unable to load motivational quote. Please try again.', 'error');
+                return null;
+            }
+        }
+
+        // Show motivational quote modal
+        async function showMotivationalModal() {
+            // Create loading modal first
+            showLoadingModal();
+
+            // Fetch the quote
+            const quoteData = await fetchMotivationalQuote();
+
+            // Remove loading modal
+            hideModal();
+
+            if (!quoteData) {
+                return;
+            }
+
+            // Create the modal HTML
+            const modalHTML = `
+                <div class="modal-overlay" id="motivationModal" onclick="closeModalOnOverlay(event)">
+                    <div class="motivation-modal animate-fade-in-up">
+                        <div class="modal-header">
+                            <h2 class="modal-title">✨ Daily Motivation</h2>
+                            <button class="close-btn" onclick="hideModal()" aria-label="Close">×</button>
+                        </div>
+                        
+                        <div class="modal-content">
+                            <div class="quote-container">
+                                <div class="quote-icon">💪</div>
+                                <blockquote class="quote-text">
+                                    ${quoteData.message}
+                                </blockquote>
+                                ${quoteData.author ? `<p class="quote-author">— ${quoteData.author}</p>` : ''}
+                            </div>
+                        </div>
+                        
+                        <div class="modal-actions">
+                            <button class="action-btn secondary-btn" onclick="getNewQuote()">
+                                🔄 Get New Quote
+                            </button>
+                            <button class="action-btn primary-btn" onclick="hideModal()">
+                                ✨ Start My Day
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Add modal to DOM
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+            // Prevent body scrolling
+            document.body.style.overflow = 'hidden';
+
+            // Add animation delay
+            setTimeout(() => {
+                const modal = document.getElementById('motivationModal');
+                if (modal) {
+                    modal.classList.add('modal-visible');
+                }
+            }, 50);
+
+            // Mark that user has seen today's motivation
+            markDailyMotivationSeen();
+        }
+
+        // Show loading modal
+        function showLoadingModal() {
+            const loadingHTML = `
+                <div class="modal-overlay" id="loadingModal">
+                    <div class="loading-modal animate-fade-in">
+                        <div class="loading-spinner"></div>
+                        <p class="loading-text">Getting your daily inspiration...</p>
+                    </div>
+                </div>
+            `;
+
+            document.body.insertAdjacentHTML('beforeend', loadingHTML);
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Get new quote without closing modal
+        async function getNewQuote() {
+            const quoteContainer = document.querySelector('.quote-container');
+            const refreshBtn = document.querySelector('.secondary-btn');
+
+            if (refreshBtn) {
+                refreshBtn.disabled = true;
+                refreshBtn.innerHTML = '⟳ Loading...';
+            }
+
+            if (quoteContainer) {
+                quoteContainer.style.opacity = '0.5';
+            }
+
+            const newQuote = await fetchMotivationalQuote();
+
+            if (newQuote && quoteContainer) {
+                // Update the quote content
+                quoteContainer.innerHTML = `
+                    <div class="quote-icon">💪</div>
+                    <blockquote class="quote-text">
+                        ${newQuote.message}
+                    </blockquote>
+                    ${newQuote.author ? `<p class="quote-author">— ${newQuote.author}</p>` : ''}
+                `;
+                quoteContainer.style.opacity = '1';
+            }
+
+            if (refreshBtn) {
+                refreshBtn.disabled = false;
+                refreshBtn.innerHTML = '🔄 Get New Quote';
+            }
+        }
+
+        // Hide modal
+        function hideModal() {
+            const modal = document.querySelector('.modal-overlay');
+            if (modal) {
+                modal.classList.add('modal-closing');
+                setTimeout(() => {
+                    modal.remove();
+                    document.body.style.overflow = 'auto';
+                }, 300);
+            }
+        }
+
+        // Close modal when clicking overlay (not the modal content)
+        function closeModalOnOverlay(event) {
+            if (event.target.classList.contains('modal-overlay')) {
+                hideModal();
+            }
+        }
+
+        // Check if daily motivation should be shown automatically
+        function checkDailyMotivation() {
+            if (!currentUser) return;
+
+            const today = new Date().toDateString();
+            const lastShown = localStorage.getItem('lastMotivationDate');
+
+            if (lastShown !== today) {
+                // Show automatic daily motivation after 3 seconds on dashboard
+                setTimeout(() => {
+                    showMotivationalModal();
+                }, 3000);
+            }
+        }
+
+        // Mark daily motivation as seen
+        function markDailyMotivationSeen() {
+            const today = new Date().toDateString();
+            localStorage.setItem('lastMotivationDate', today);
+        }
+
+        // Notification system for errors
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <span>${message}</span>
+                <button onclick="this.parentElement.remove()">×</button>
+            `;
+
+            document.body.appendChild(notification);
+
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 5000);
+        }
+
+        // Escape key to close modal
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                hideModal();
+            }
+        });
+
         // Check for existing session on page load
         function checkExistingSession() {
             const storedUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
@@ -1473,12 +2001,22 @@
                     currentUser = storedUser;
                     window.authToken = storedToken;
                     updateUIForLoggedInUser();
-                    showPage('dashboard');
+                    showDashboardWithMotivation();
                 } catch (error) {
                     console.error('Error parsing stored user data:', error);
                     clearUserSession();
                 }
             }
+        }
+
+        // Show dashboard with motivation check
+        function showDashboardWithMotivation() {
+            showPage('dashboard');
+
+            // Check for daily motivation after dashboard loads
+            setTimeout(() => {
+                checkDailyMotivation();
+            }, 1000);
         }
 
         // Update UI for logged in user
@@ -1550,6 +2088,12 @@
                 targetPage = document.getElementById('counselorSignupPage');
             } else if (pageId === 'dashboard') {
                 targetPage = document.getElementById('dashboardPage');
+                // Add daily motivation check for dashboard
+                if (currentUser) {
+                    setTimeout(() => {
+                        checkDailyMotivation();
+                    }, 1000);
+                }
             } else if (pageId === 'find-counselor') {
                 targetPage = document.getElementById('findCounselorPage');
                 // Load counselors when page is shown
@@ -1741,16 +2285,6 @@
             }
         }
 
-        // Add spinner animation CSS
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes spin {
-                0% { transform: rotate(0deg); }
-                100% { transform: rotate(360deg); }
-            }
-        `;
-        document.head.appendChild(style);
-
         // Client signup form handler
         document.getElementById('clientSignupForm').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -1871,9 +2405,9 @@
 
                     e.target.reset();
 
-                    // Redirect to dashboard after 2 seconds
+                    // Redirect to dashboard with motivation check after 2 seconds
                     setTimeout(() => {
-                        showPage('dashboard');
+                        showDashboardWithMotivation();
                     }, 2000);
                 } else {
                     showMessage('clientMessageContainer',
@@ -1986,7 +2520,7 @@
                 } else {
                     container.innerHTML = `
                         <div class="no-counselors">
-                            <div class="no-counselors-icon">Counselor</div>
+                            <div class="no-counselors-icon">👨‍⚕️</div>
                             <h3>No Counselors Available</h3>
                             <p>We're currently working on expanding our network of mental health professionals. Please check back soon.</p>
                         </div>
@@ -2045,14 +2579,14 @@
                         
                         <div class="counselor-details">
                             <div class="detail-item">
-                                <div class="detail-icon">License</div>
+                                <div class="detail-icon">📋</div>
                                 <div class="detail-text">
                                     ${counselor.license_number || 'Not specified'}
                                 </div>
                             </div>
                             
                             <div class="detail-item">
-                                <div class="detail-icon">Location</div>
+                                <div class="detail-icon">📍</div>
                                 <div class="detail-text">
                                     ${counselor.location || 'Location not specified'}
                                 </div>
