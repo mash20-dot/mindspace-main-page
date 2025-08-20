@@ -1200,6 +1200,317 @@
                 gap: 1rem;
             }
 
+            /* Post and Reply Styles - Add this to your existing CSS */
+
+            .posts-list {
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .post-card {
+                background: var(--bg-card);
+                border-radius: 15px;
+                box-shadow: var(--shadow);
+                overflow: hidden;
+                transition: all 0.3s ease;
+                border: 2px solid transparent;
+            }
+
+            .post-card:hover {
+                box-shadow: var(--shadow-lg);
+                border-color: rgba(78, 103, 235, 0.2);
+            }
+
+            .post-header {
+                padding: 1.5rem 1.5rem 0;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .post-author {
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+            }
+
+            .author-avatar {
+                width: 40px;
+                height: 40px;
+                background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1rem;
+                color: white;
+                font-weight: 600;
+            }
+
+            .author-info {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .author-name {
+                font-weight: 600;
+                color: var(--text-primary);
+                font-size: 0.95rem;
+            }
+
+            .post-time {
+                font-size: 0.8rem;
+                color: var(--text-secondary);
+            }
+
+            .post-content {
+                padding: 1rem 1.5rem;
+                color: var(--text-primary);
+                line-height: 1.6;
+                white-space: pre-wrap;
+                word-wrap: break-word;
+            }
+
+            .post-actions {
+                padding: 0 1.5rem 1.5rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                border-top: 1px solid var(--border-color);
+                margin: 0 1.5rem;
+                padding-top: 1rem;
+            }
+
+            .reply-btn {
+                background: var(--bg-primary);
+                border: 2px solid var(--primary-color);
+                color: var(--primary-color);
+                padding: 0.5rem 1rem;
+                border-radius: 25px;
+                cursor: pointer;
+                font-weight: 500;
+                font-size: 0.9rem;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .reply-btn:hover {
+                background: var(--primary-color);
+                color: white;
+                transform: translateY(-1px);
+            }
+
+            .replies-count {
+                color: var(--text-secondary);
+                font-size: 0.9rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            /* Reply Section */
+            .replies-section {
+                background: var(--bg-secondary);
+                border-top: 1px solid var(--border-color);
+                display: none;
+            }
+
+            .replies-section.active {
+                display: block;
+            }
+
+            .reply-form {
+                padding: 1.5rem;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .reply-form textarea {
+                width: 100%;
+                min-height: 80px;
+                padding: 0.75rem;
+                border: 2px solid var(--border-color);
+                border-radius: 8px;
+                background: var(--bg-primary);
+                color: var(--text-primary);
+                font-family: inherit;
+                resize: vertical;
+                margin-bottom: 1rem;
+            }
+
+            .reply-form textarea:focus {
+                outline: none;
+                border-color: var(--primary-color);
+                box-shadow: 0 0 0 3px rgba(78, 103, 235, 0.1);
+            }
+
+            .reply-submit-btn {
+                background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+                color: white;
+                border: none;
+                padding: 0.5rem 1rem;
+                border-radius: 20px;
+                cursor: pointer;
+                font-weight: 500;
+                font-size: 0.9rem;
+                transition: all 0.3s ease;
+            }
+
+            .reply-submit-btn:hover {
+                transform: translateY(-1px);
+                box-shadow: 0 4px 12px rgba(78, 103, 235, 0.3);
+            }
+
+            .reply-submit-btn:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+                transform: none;
+            }
+
+            .replies-list {
+                padding: 1rem 1.5rem;
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .reply-item {
+                background: var(--bg-primary);
+                padding: 1rem;
+                border-radius: 10px;
+                border-left: 3px solid var(--primary-color);
+            }
+
+            .reply-author {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .reply-author-avatar {
+                width: 30px;
+                height: 30px;
+                background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.8rem;
+                color: white;
+                font-weight: 600;
+            }
+
+            .reply-author-name {
+                font-weight: 600;
+                color: var(--text-primary);
+                font-size: 0.9rem;
+            }
+
+            .reply-content {
+                color: var(--text-primary);
+                line-height: 1.5;
+                white-space: pre-wrap;
+                word-wrap: break-word;
+                margin-left: 0;
+            }
+
+            .no-posts {
+                text-align: center;
+                padding: 3rem;
+                color: var(--text-secondary);
+            }
+
+            .no-posts-icon {
+                font-size: 3rem;
+                margin-bottom: 1rem;
+            }
+
+            .error-message {
+                background: rgba(239, 68, 68, 0.1);
+                color: var(--error-color);
+                border: 2px solid rgba(239, 68, 68, 0.2);
+                padding: 1rem;
+                border-radius: 10px;
+                text-align: center;
+                margin: 2rem 0;
+            }
+
+            /* Character counter */
+            .character-counter {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-top: 0.5rem;
+            }
+
+            .character-counter.over-limit {
+                color: var(--error-color);
+            }
+
+            /* Loading states */
+            .loading-spinner {
+                display: inline-block;
+                width: 20px;
+                height: 20px;
+                border: 2px solid transparent;
+                border-top: 2px solid currentColor;
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+                margin-right: 0.5rem;
+            }
+
+            /* Responsive design */
+            @media (max-width: 768px) {
+                .post-header {
+                    padding: 1rem 1rem 0;
+                }
+
+                .post-content {
+                    padding: 1rem;
+                }
+
+                .post-actions {
+                    padding: 0 1rem 1rem;
+                    margin: 0 1rem;
+                    flex-direction: column;
+                    gap: 0.75rem;
+                    align-items: stretch;
+                }
+
+                .reply-btn {
+                    justify-content: center;
+                }
+
+                .replies-list {
+                    padding: 1rem;
+                }
+
+                .reply-form {
+                    padding: 1rem;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .post-creation-card {
+                    padding: 1.5rem 1rem;
+                }
+
+                .author-name {
+                    font-size: 0.9rem;
+                }
+
+                .post-time {
+                    font-size: 0.75rem;
+                }
+
+                .post-content {
+                    font-size: 0.95rem;
+                }
+            }
+
             .username {
                 display: none;
             }
@@ -1494,8 +1805,8 @@
                     </div>
 
                     <div class="dashboard-actions">
-                        <div class="action-card" onclick="alert('Community feature coming soon!')">
-                            <div class="action-icon"></div>
+                        <div class="action-card" onclick="showPage('community')">
+                            <div class="action-icon">💬</div>
                             <h3 class="action-title">Join Community</h3>
                             <p class="action-description">Connect with others who understand your journey in supportive
                                 group discussions.</p>
@@ -1525,7 +1836,62 @@
             </div>
         </div>
     </div>
+    <!-- Community/Forum Page HTML -->
+    <!-- Insert this after the dashboardPage section, before the User Selection Page -->
 
+    <div id="communityPage" class="page-section">
+        <div class="container">
+            <div class="dashboard-section">
+                <div class="dashboard-container">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                        <a href="#" class="back-link" onclick="showPage('dashboard')">Back to Dashboard</a>
+                        <button class="theme-toggle" onclick="refreshCommunity()" style="padding: 0.5rem 1rem;">
+                            🔄 Refresh
+                        </button>
+                    </div>
+
+                    <div class="welcome-card">
+                        <h1 class="welcome-title">Community Forum</h1>
+                        <p class="welcome-subtitle">Share your thoughts, experiences, and connect with others in a safe
+                            space</p>
+                    </div>
+
+                    <!-- Create New Post Section -->
+                    <div class="post-creation-card"
+                        style="background: var(--bg-card); padding: 2rem; border-radius: 15px; box-shadow: var(--shadow); margin-bottom: 2rem;">
+                        <h3 style="margin-bottom: 1rem; color: var(--text-primary);">Share Your Thoughts</h3>
+                        <form id="createPostForm">
+                            <div class="form-group">
+                                <textarea id="postContent" name="content"
+                                    placeholder="What's on your mind? Share your thoughts, experiences, or ask for support..."
+                                    required
+                                    style="min-height: 120px; resize: vertical; width: 100%; padding: 1rem; border: 2px solid var(--border-color); border-radius: 12px; background: var(--bg-primary); color: var(--text-primary); font-family: inherit; line-height: 1.5;"></textarea>
+                            </div>
+                            <div style="display: flex; justify-content: flex-end; gap: 1rem; align-items: center;">
+                                <span id="characterCount" style="color: var(--text-secondary); font-size: 0.9rem;">0
+                                    characters</span>
+                                <button type="submit" class="submit-btn" id="createPostBtn"
+                                    style="width: auto; padding: 0.75rem 1.5rem;">
+                                    <span id="createPostText">Share Post</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Posts Container -->
+                    <div id="postsContainer">
+                        <div class="loading-container" style="text-align: center; padding: 3rem;">
+                            <div
+                                style="display: inline-block; width: 40px; height: 40px; border: 3px solid var(--border-color); border-top: 3px solid var(--primary-color); border-radius: 50%; animation: spin 1s linear infinite;">
+                            </div>
+                            <p style="margin-top: 1rem; color: var(--text-secondary);">Loading community posts...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Find Counselor Page -->
     <div id="findCounselorPage" class="page-section">
         <div class="container">
@@ -2094,6 +2460,12 @@
                 targetPage = document.getElementById('findCounselorPage');
                 // Load counselors when page is shown
                 loadCounselors();
+            } else if (pageId === 'community') {
+                targetPage = document.getElementById('communityPage');
+                // Load community data when page is shown
+                setTimeout(() => {
+                    loadCommunityData();
+                }, 500);
             }
 
             if (targetPage) {
@@ -2421,7 +2793,366 @@
                 setLoading('loginSubmitBtn', 'loginButtonText', false);
             }
         });
+        // Community functionality - Add this to your existing JavaScript section
 
+        // Global variables for community data
+        let postsData = [];
+        let repliesData = [];
+
+        // Character counter for post creation
+        document.getElementById('postContent').addEventListener('input', function () {
+            const content = this.value;
+            const charCount = content.length;
+            const maxChars = 1000; // Set your desired limit
+
+            const counter = document.getElementById('characterCount');
+            counter.textContent = `${charCount} characters`;
+
+            if (charCount > maxChars) {
+                counter.style.color = 'var(--error-color)';
+                counter.textContent = `${charCount}/${maxChars} characters (over limit)`;
+            } else if (charCount > maxChars * 0.9) {
+                counter.style.color = 'var(--text-secondary)';
+                counter.textContent = `${charCount}/${maxChars} characters`;
+            } else {
+                counter.style.color = 'var(--text-secondary)';
+                counter.textContent = `${charCount} characters`;
+            }
+        });
+
+        // Create new post
+        document.getElementById('createPostForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const content = document.getElementById('postContent').value.trim();
+
+            if (!content) {
+                showNotification('Please write something before posting', 'error');
+                return;
+            }
+
+            if (content.length > 1000) {
+                showNotification('Post is too long. Please keep it under 1000 characters.', 'error');
+                return;
+            }
+
+            if (!window.authToken) {
+                showNotification('Please log in to create posts', 'error');
+                return;
+            }
+
+            const submitBtn = document.getElementById('createPostBtn');
+            const submitText = document.getElementById('createPostText');
+
+            // Set loading state
+            submitBtn.disabled = true;
+            submitText.innerHTML = '<span class="loading-spinner"></span>Posting...';
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/express/post_comment`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${window.authToken}`
+                    },
+                    body: JSON.stringify({ content: content })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    showNotification('Post created successfully!', 'success');
+                    document.getElementById('postContent').value = '';
+                    document.getElementById('characterCount').textContent = '0 characters';
+
+                    // Refresh the posts to show the new one
+                    setTimeout(() => {
+                        loadCommunityData();
+                    }, 1000);
+                } else {
+                    throw new Error(result.message || 'Failed to create post');
+                }
+            } catch (error) {
+                console.error('Error creating post:', error);
+                showNotification(error.message || 'Failed to create post. Please try again.', 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitText.textContent = 'Share Post';
+            }
+        });
+
+        // Load community data (posts and replies)
+        async function loadCommunityData() {
+            if (!window.authToken) {
+                document.getElementById('postsContainer').innerHTML = `
+            <div class="error-message">
+                <p><strong>Authentication Required</strong></p>
+                <p>Please log in to view community posts.</p>
+            </div>
+        `;
+                return;
+            }
+
+            const container = document.getElementById('postsContainer');
+
+            // Show loading state
+            container.innerHTML = `
+        <div class="loading-container">
+            <div style="display: inline-block; width: 40px; height: 40px; border: 3px solid var(--border-color); border-top: 3px solid var(--primary-color); border-radius: 50%; animation: spin 1s linear infinite;"></div>
+            <p style="margin-top: 1rem; color: var(--text-secondary);">Loading community posts...</p>
+        </div>
+    `;
+
+            try {
+                // Load posts and replies in parallel
+                const [postsResponse, repliesResponse] = await Promise.all([
+                    fetch(`${API_BASE_URL}/express/get_comment`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${window.authToken}`
+                        }
+                    }),
+                    fetch(`${API_BASE_URL}/express/get_reply`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${window.authToken}`
+                        }
+                    })
+                ]);
+
+                if (!postsResponse.ok || !repliesResponse.ok) {
+                    throw new Error('Failed to load community data');
+                }
+
+                postsData = await postsResponse.json();
+                repliesData = await repliesResponse.json();
+
+                displayPosts(postsData, repliesData);
+
+            } catch (error) {
+                console.error('Error loading community data:', error);
+
+                let errorMessage = 'Unable to load community posts at this time.';
+
+                if (error.message.includes('401')) {
+                    errorMessage = 'Your session has expired. Please log in again.';
+                    setTimeout(() => {
+                        logout();
+                        showPage('client-signup');
+                    }, 3000);
+                }
+
+                container.innerHTML = `
+            <div class="error-message">
+                <p><strong>Error Loading Posts</strong></p>
+                <p>${errorMessage}</p>
+                <button onclick="loadCommunityData()" style="margin-top: 1rem; padding: 0.5rem 1rem; background: var(--primary-color); color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    Try Again
+                </button>
+            </div>
+        `;
+            }
+        }
+
+        // Display posts with replies
+        function displayPosts(posts, replies) {
+            const container = document.getElementById('postsContainer');
+
+            if (!posts || posts.length === 0) {
+                container.innerHTML = `
+            <div class="no-posts">
+                <div class="no-posts-icon">💬</div>
+                <h3>No Posts Yet</h3>
+                <p>Be the first to share something with the community!</p>
+            </div>
+        `;
+                return;
+            }
+
+            // Group replies by post_id
+            const repliesByPost = {};
+            replies.forEach(reply => {
+                if (!repliesByPost[reply.post_id]) {
+                    repliesByPost[reply.post_id] = [];
+                }
+                repliesByPost[reply.post_id].push(reply);
+            });
+
+            const postsHTML = posts.map((post, index) => {
+                const postReplies = repliesByPost[post.user_id] || []; // Using user_id as post identifier
+                const replyCount = postReplies.length;
+                const authorInitials = generateAnonymousName(post.user_id);
+
+                const repliesHTML = postReplies.map(reply => {
+                    const replyAuthorInitials = generateAnonymousName(reply.user_id);
+
+                    return `
+                <div class="reply-item">
+                    <div class="reply-author">
+                        <div class="reply-author-avatar">
+                            ${replyAuthorInitials.slice(0, 2)}
+                        </div>
+                        <span class="reply-author-name">${replyAuthorInitials}</span>
+                    </div>
+                    <div class="reply-content">${escapeHtml(reply.content)}</div>
+                </div>
+            `;
+                }).join('');
+
+                return `
+            <div class="post-card" data-post-id="${post.user_id}">
+                <div class="post-header">
+                    <div class="post-author">
+                        <div class="author-avatar">
+                            ${authorInitials.slice(0, 2)}
+                        </div>
+                        <div class="author-info">
+                            <div class="author-name">${authorInitials}</div>
+                            <div class="post-time">Anonymous User</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="post-content">${escapeHtml(post.content)}</div>
+                
+                <div class="post-actions">
+                    <button class="reply-btn" onclick="toggleReplies(${post.user_id})">
+                        💬 Reply
+                    </button>
+                    <div class="replies-count">
+                        ${replyCount} ${replyCount === 1 ? 'reply' : 'replies'}
+                    </div>
+                </div>
+                
+                <div class="replies-section" id="replies-${post.user_id}">
+                    <div class="reply-form">
+                        <textarea 
+                            placeholder="Write your reply..." 
+                            id="reply-input-${post.user_id}"
+                            maxlength="500"></textarea>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="color: var(--text-secondary); font-size: 0.8rem;">Max 500 characters</span>
+                            <button class="reply-submit-btn" onclick="submitReply(${post.user_id})">
+                                Send Reply
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="replies-list">
+                        ${repliesHTML || '<p style="color: var(--text-secondary); text-align: center; padding: 1rem;">No replies yet. Be the first to respond!</p>'}
+                    </div>
+                </div>
+            </div>
+        `;
+            }).join('');
+
+            container.innerHTML = `<div class="posts-list">${postsHTML}</div>`;
+
+            // Add staggered animation delays
+            const cards = container.querySelectorAll('.post-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.classList.add('animate-fade-in-up');
+            });
+        }
+
+        // Toggle replies section
+        function toggleReplies(postId) {
+            const repliesSection = document.getElementById(`replies-${postId}`);
+            repliesSection.classList.toggle('active');
+
+            // Focus on textarea when opening
+            if (repliesSection.classList.contains('active')) {
+                const textarea = document.getElementById(`reply-input-${postId}`);
+                setTimeout(() => textarea.focus(), 100);
+            }
+        }
+
+        // Submit reply
+        async function submitReply(postId) {
+            const textarea = document.getElementById(`reply-input-${postId}`);
+            const content = textarea.value.trim();
+
+            if (!content) {
+                showNotification('Please write a reply before submitting', 'error');
+                return;
+            }
+
+            if (!window.authToken) {
+                showNotification('Please log in to reply', 'error');
+                return;
+            }
+
+            const submitBtn = event.target;
+            const originalText = submitBtn.textContent;
+
+            // Set loading state
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="loading-spinner"></span>Sending...';
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/express/reply`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${window.authToken}`
+                    },
+                    body: JSON.stringify({
+                        content: content,
+                        post_id: postId
+                    })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    showNotification('Reply sent successfully!', 'success');
+                    textarea.value = '';
+
+                    // Refresh the community data to show the new reply
+                    setTimeout(() => {
+                        loadCommunityData();
+                    }, 1000);
+                } else {
+                    throw new Error(result.message || 'Failed to send reply');
+                }
+            } catch (error) {
+                console.error('Error sending reply:', error);
+                showNotification(error.message || 'Failed to send reply. Please try again.', 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+            }
+        }
+
+        // Generate anonymous name from user ID
+        function generateAnonymousName(userId) {
+            const adjectives = ['Kind', 'Brave', 'Gentle', 'Strong', 'Wise', 'Caring', 'Peaceful', 'Hopeful', 'Bright', 'Calm'];
+            const nouns = ['Soul', 'Heart', 'Spirit', 'Mind', 'Voice', 'Light', 'Hope', 'Dream', 'Star', 'Journey'];
+
+            // Use userId as seed for consistent names
+            const adjIndex = userId % adjectives.length;
+            const nounIndex = Math.floor(userId / adjectives.length) % nouns.length;
+
+            return `${adjectives[adjIndex]} ${nouns[nounIndex]}`;
+        }
+
+        // Refresh community
+        function refreshCommunity() {
+            loadCommunityData();
+        }
+
+        // Escape HTML to prevent XSS
+        function escapeHtml(unsafe) {
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
         // Counselor signup form handler
         document.getElementById('counselorSignupForm').addEventListener('submit', async (e) => {
             e.preventDefault();
