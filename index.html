@@ -2152,9 +2152,9 @@
                 const response = await fetch(`${API_BASE_URL}/motivate/inspiration`, {
                     method: 'GET',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${window.authToken}`
-                    }
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include'
                 });
 
                 if (!response.ok) {
@@ -2852,9 +2852,9 @@
                 const response = await fetch(`${API_BASE_URL}/express/post_comment`, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${window.authToken}`
+                        'Content-Type': 'application/json'
                     },
+                    credentials: 'include',
                     body: JSON.stringify({ content: content })
                 });
 
@@ -2909,16 +2909,16 @@
                     fetch(`${API_BASE_URL}/express/get_comment`, {
                         method: 'GET',
                         headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${window.authToken}`
-                        }
+                            'Content-Type': 'application/json'
+                        },
+                        credentials: 'include'
                     }),
                     fetch(`${API_BASE_URL}/express/get_reply`, {
                         method: 'GET',
                         headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${window.authToken}`
-                        }
+                            'Content-Type': 'application/json'
+                        },
+                        credentials: 'include'
                     })
                 ]);
 
@@ -3096,9 +3096,9 @@
                 const response = await fetch(`${API_BASE_URL}/express/reply`, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${window.authToken}`
+                        'Content-Type': 'application/json'
                     },
+                    credentials: 'include',
                     body: JSON.stringify({
                         content: content,
                         post_id: postId
@@ -3222,9 +3222,9 @@
                 const response = await fetch(`${API_BASE_URL}/find_counselor/get_service`, {
                     method: 'GET',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${window.authToken}`
-                    }
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include'
                 });
 
                 if (!response.ok) {
